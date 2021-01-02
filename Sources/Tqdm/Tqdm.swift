@@ -222,9 +222,9 @@ public class Tqdm {
             lastPrintN += Float(n) // for auto-display logic to work
         }
         self.n += Float(n)
-        if (self.n - lastPrintN) > minIterations {
+        if (self.n - lastPrintN) >= minIterations {
             let deltaT = Date().timeIntervalSince(lastPrintTime)
-            if deltaT > Double(minInterval) {
+            if deltaT >= Double(minInterval) {
                 let deltaIt = self.n - lastPrintN
                 let currentTime = Date()
                 if smoothing > 0 && deltaT > 0 && deltaIt > 0 {
