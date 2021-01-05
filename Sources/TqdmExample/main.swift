@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Mustafa Ebrar Aktaş on 1.01.2021.
-//
-
 import Foundation
 import Tqdm
 
