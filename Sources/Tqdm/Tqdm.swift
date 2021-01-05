@@ -10,6 +10,8 @@ private let colorRgb = "\u{1b}[38;2;%d;%d;%dm"
 /// Sequence wrapper to display `Tqdm` progress bar while iterating
 public class TqdmSequence<S: Sequence>: Sequence, IteratorProtocol {
     private let tqdm: Tqdm
+    // Skip update for the first iteration, see next()
+    private var first: Bool
     private var iterator: S.Iterator
 
     /// TqdmSequence Wrapper to display `Tqdm` progress bar while iterating
@@ -57,13 +59,20 @@ public class TqdmSequence<S: Sequence>: Sequence, IteratorProtocol {
                 unitDivisor: unitDivisor,
                 color: color)
         iterator = sequence.makeIterator()
+        first = true
     }
 
     public func next() -> S.Element? {
         if let e = iterator.next() {
-            tqdm.update()
+            if !first {
+                // To calculate ETA accurately, we postpone progress bar update until next iteration call
+                tqdm.update()
+            }
+            first = false
             return e
         } else {
+            // After the last element iterated, update once the bar once
+            tqdm.update()
             // Iteration is completed
             tqdm.close()
             return nil
@@ -79,6 +88,7 @@ public class TqdmSequence<S: Sequence>: Sequence, IteratorProtocol {
 }
 
 public class Tqdm {
+    // TODO: Support nested bars (ebraraktas)
     public enum Color {
         case hex(String), red, green, blue, yellow, magenta, cyan, white
 
