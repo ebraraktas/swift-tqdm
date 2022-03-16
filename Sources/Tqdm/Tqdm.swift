@@ -257,10 +257,10 @@ public class Tqdm {
         }
     }
 
-    /// Manually, complete and close  the progress bar
+    /// Manually complete and close  the progress bar
     public func complete() {
         if self.total != nil {
-            self.n = self.total!
+            self.n = self.total
         }
             close()
     }
