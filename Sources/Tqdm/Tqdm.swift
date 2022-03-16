@@ -232,7 +232,6 @@ public class Tqdm {
             lastPrintN += Float(n) // for auto-display logic to work
         }
         self.n += Float(n)
-        self.n = min(self.n, self.total!)
         if (self.n - lastPrintN) >= minIterations {
             let deltaT = Date().timeIntervalSince(lastPrintTime)
             if deltaT >= Double(minInterval) {
@@ -258,9 +257,11 @@ public class Tqdm {
         }
     }
 
-    // Complete Progress
+    /// Manually, complete and close  the progress bar
     public func complete() {
-            self.n = self.total ?? 0
+        if self.total != nil {
+            self.n = self.total!
+        }
             close()
     }
     
