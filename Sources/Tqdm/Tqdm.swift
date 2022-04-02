@@ -262,7 +262,7 @@ public class Tqdm {
         if self.total != nil {
             self.n = self.total!
         }
-            close()
+        close()
     }
     
     func display() {
