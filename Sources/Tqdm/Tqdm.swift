@@ -257,6 +257,14 @@ public class Tqdm {
         }
     }
 
+    /// Manually complete and close  the progress bar
+    public func complete() {
+        if self.total != nil {
+            self.n = self.total!
+        }
+            close()
+    }
+    
     func display() {
         let meter = formatMeter()
         if let colorValue = color?.value() {
