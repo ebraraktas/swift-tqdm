@@ -21,7 +21,7 @@ let Package = Package(
         // ...
         targets: [
             .target(name: "MyAwesomeTarget",
-                    dependencies: ["Tqdm"])]
+                    dependencies: [.product(name: "Tqdm", package: "swift-tqdm")])]
 )
 ```
 
